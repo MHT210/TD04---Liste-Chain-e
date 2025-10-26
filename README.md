@@ -6,7 +6,7 @@ Si ce n’est pas déjà fait :
 👉 va sur https://github.com
 
 👉 clique sur Sign up et crée ton compte.
-
+s
 🪣 Étape 2 — Installer Git sur les deux ordinateurs
 Sur Windows :
 

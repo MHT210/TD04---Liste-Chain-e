@@ -69,6 +69,32 @@ void research_rec(LISTE_POINTS *list, int x, int y) {
 	if (list->suiv) {research_rec(list->suiv, x, y);}
 }
 
+LISTE_POINTS * delete_first(LISTE_POINTS * list) {
+	if (!list) {return NULL;}
+	LISTE_POINTS * temp;
+
+	temp = list;
+	list = list->suiv;
+	free(temp);
+	return list;
+}
+
+LISTE_POINTS * delete_last(LISTE_POINTS * list) {
+	LISTE_POINTS * temp;
+	LISTE_POINTS * prev_temp;
+
+	temp = list; 
+
+	while (temp->suiv) {
+		prev_temp = temp;
+		temp = temp->suiv;
+	}
+
+	prev_temp->suiv = NULL;
+	free(temp);
+	return list;
+}
+
 int main () {
 	LISTE_POINTS *l;
 	l = NULL;
@@ -81,6 +107,14 @@ int main () {
 	
 	printf("L'element est a la pos : %d \n",research(l, 1, 2));
 	research_rec(l, 1, 1);
+
+	l = delete_first(l);
+	printf("Suppression du PREMIER element : \n");
+	print_list(l);
+
+	l = delete_last(l);
+	printf("Suppression du DERNIER element : \n");
+	print_list(l);
 
 	return 0;
 }
