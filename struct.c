@@ -95,9 +95,39 @@ LISTE_POINTS * delete_last(LISTE_POINTS * list) {
 	return list;
 }
 
+LISTE_POINTS * delete(LISTE_POINTS * list, int x, int y) {
+
+	if (list->p.x == x && list->p.y == y) {
+		return delete_first(list);
+	}
+
+	LISTE_POINTS * temp;
+	LISTE_POINTS * prev_temp;
+
+	temp = list;
+
+	while (temp->p.x != x || temp->p.y != y) {
+		prev_temp = temp;
+		temp = temp->suiv;
+		if (!temp) {
+			if (prev_temp->p.x == x && prev_temp->p.y == y) {
+				return delete_last(list);
+			}
+		}
+	}
+
+	if (temp->p.x == x && temp->p.y == y) {
+		prev_temp->suiv = temp->suiv;
+		free(temp);
+	}
+	
+	return list;
+}
+
 int main () {
 	LISTE_POINTS *l;
 	l = NULL;
+	printf("\n");
 	l = insert_first(l, 1, 2);
 	l = insert_first(l, 3, 4);
 	print_list(l);
@@ -105,15 +135,11 @@ int main () {
 	l = insert_last(l, 1, 1);
 	print_list(l);
 	
-	printf("L'element est a la pos : %d \n",research(l, 1, 2));
+	printf("\nL'element est a la pos : %d \n",research(l, 1, 2));
 	research_rec(l, 1, 1);
 
-	l = delete_first(l);
-	printf("Suppression du PREMIER element : \n");
-	print_list(l);
-
-	l = delete_last(l);
-	printf("Suppression du DERNIER element : \n");
+	l = delete(l, 1, 2);
+	printf("\nSuppression des elements : \n");
 	print_list(l);
 
 	return 0;
