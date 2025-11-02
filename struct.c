@@ -35,6 +35,36 @@ LISTE_POINTS * insert_last(LISTE_POINTS *list, int x, int y) {
 	return list;
 }
 
+LISTE_POINTS * add(LISTE_POINTS * list, int x, int y, int pos) {
+	
+	if (pos == 1) {return insert_first(list, x, y);}
+
+	LISTE_POINTS * temp;
+	LISTE_POINTS * prev_temp;
+
+	temp = list;
+	int i = 1;
+
+	while (temp) {
+		prev_temp = temp;
+		temp = temp->suiv;
+		i++;
+		printf(" valeur de i : %d", i);
+		if (i == pos) {
+			LISTE_POINTS * add_el = malloc(sizeof(LISTE_POINTS));
+			if (!add_el) {fprintf(stderr, "pb malloc\n"); exit(12);}
+
+			add_el->p.x = x;
+			add_el->p.y = y;
+			add_el->suiv = temp;
+			prev_temp->suiv = add_el;
+
+			return list;
+		}
+	}
+	return list;
+}
+
 int count_values(LISTE_POINTS *list) {
 	int i = 0;
 	while (list) {
@@ -130,6 +160,8 @@ int main () {
 	printf("\n");
 	l = insert_first(l, 1, 2);
 	l = insert_first(l, 3, 4);
+	l = insert_first(l, 5, 5);
+	l = insert_first(l, 6, 7);
 	print_list(l);
 	
 	l = insert_last(l, 1, 1);
@@ -140,6 +172,10 @@ int main () {
 
 	l = delete(l, 1, 2);
 	printf("\nSuppression des elements : \n");
+	print_list(l);
+
+	l = add(l, 4, 4, 3);
+	printf("\nAjout des elements : \n");
 	print_list(l);
 
 	return 0;
